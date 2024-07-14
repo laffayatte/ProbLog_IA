@@ -1,0 +1,39 @@
+% Probabilidades base para a condição da rua (Str)
+0.1::str(snow_covered).
+0.6::str(dry).
+0.3::str(wet).
+
+% Probabilidades base para o volante do dínamo desgastado (Flw)
+0.2::flw.
+
+% Probabilidades condicionais para o dínamo deslizante (R) com base na condição da rua (Str)
+0.8::r :- str(snow_covered).
+0.3::r :- str(dry).
+0.5::r :- str(wet).
+
+% Probabilidades condicionais para a tensão do dínamo (V) com base no estado do dínamo (R) e volante (Flw)
+0.9::v :- r, \+flw.
+0.1::v :- r, flw.
+0.1::v :- \+r, \+flw.
+0.05::v :- \+r, flw.
+
+% Probabilidades base para a lâmpada ok (B) e cabo ok (K)
+0.95::b.
+0.9::k.
+
+% Tabela de probabilidades condicionais para a luz ligada (Li)
+0.99::li :- v, b, k.
+0.01::li :- v, b, \+k.
+0.01::li :- v, \+b, k.
+0.001::li :- v, \+b, \+k.
+0.3::li :- \+v, b, k.
+0.005::li :- \+v, b, \+k.
+0.005::li :- \+v, \+b, k.
+0.0::li :- \+v, \+b, \+k.
+
+% Consultas
+query(v).
+query(li).
+
+% Evidência
+evidence(str(snow_covered)).
