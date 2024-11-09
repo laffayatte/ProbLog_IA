@@ -6,7 +6,7 @@
 % Probabilidades base para o volante do dínamo desgastado
 0.2::flw.
 
-% Probabilidades condicionais para o dínamo deslizante (R) com base na condição da rua (Str) e no estado do volante (Flw)
+% Probabilidades condicionais para o dínamo deslizante (R) com base na condição da rua (Str) e no estado do volante (Flw).
 0.9::r :- str(snow_covered), flw.
 0.6::r :- str(snow_covered), \+flw.
 0.2::r :- str(dry), flw.
